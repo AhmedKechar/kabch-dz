@@ -112,7 +112,8 @@ const translations = {
         checkout_subtitle: "الدفع نقداً عند الاستلام فجر يوم العيد. يرجى ملء بيانات التوصيل الأساسية لتسجيل طلبيتك.",
         form_name: "الاسم الكامل",
         form_phone: "رقم الهاتف",
-        form_state: "الولاية / المدينة",
+        form_phone_placeholder: "مثال: 0661234567",
+        form_state: "الولاية",
         form_state_placeholder: "اختر ولايتك",
         form_address: "العنوان بالتفصيل",
         checkout_count: "عدد الأضاحي المحجوزة:",
@@ -883,46 +884,119 @@ function getBreedNameEn(breed) {
 }
 
 // ==========================================================================
-// QUICKVIEW MODAL ENGINE
+// PRODUCT PAGE ENGINE
 // ==========================================================================
-let activeQuickViewProduct = null;
+let activeProduct = null;
 
-function openQuickView(id) {
+function openProductPage(id) {
     const product = catalogProducts.find(p => p.id === id);
     if (!product) return;
     
-    activeQuickViewProduct = product;
-    
-    const modal = document.getElementById('quick-view-modal');
+    activeProduct = product;
     
     // Populate details
-    document.getElementById('qv-val-breed').textContent = currentLang === 'ar' ? getBreedNameAr(product.breed) : getBreedNameEn(product.breed);
-    document.getElementById('qv-val-id').textContent = `KABCH-DZ ID: ${product.id}`;
-    document.getElementById('qv-val-price').textContent = formatPrice(product.priceDZD);
-    document.getElementById('qv-val-weight').textContent = product.weight;
-    document.getElementById('qv-val-age').textContent = product.age;
+    document.getElementById('pv-val-breed').textContent = currentLang === 'ar' ? getBreedNameAr(product.breed) : getBreedNameEn(product.breed);
+    document.getElementById('pv-val-title').textContent = currentLang === 'ar' 
+        ? (product.name_ar || `كبش ${getBreedNameAr(product.breed)}`)
+        : (product.name_en || `${getBreedNameEn(product.breed)}`);
+    document.getElementById('pv-val-id').textContent = `KABCH-DZ ID: ${product.id}`;
+    document.getElementById('pv-val-price').textContent = formatPrice(product.priceDZD);
+    document.getElementById('pv-val-weight').textContent = product.weight;
+    document.getElementById('pv-val-age').textContent = product.age;
     
-    document.getElementById('qv-val-desc').textContent = currentLang === 'ar' ? product.desc_ar : product.desc_en;
+    document.getElementById('pv-val-desc').textContent = currentLang === 'ar' ? product.desc_ar : product.desc_en;
     
     // Set Image
-    const qvImageBox = document.getElementById('qv-image-box');
-    qvImageBox.innerHTML = `<img src="${getSheepImage(product)}" alt="${product.breed}" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">`;
+    const pvImageBox = document.getElementById('pv-image-box');
+    pvImageBox.innerHTML = `<img src="${getSheepImage(product)}" alt="${product.breed}" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">`;
     
-    modal.classList.remove('hidden');
-    gsap.fromTo('.modal-content', { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power2.out" });
+    // Populate Related Products
+    const relatedProducts = catalogProducts.filter(p => p.id !== id).slice(0, 3);
+    const relatedGrid = document.getElementById('related-products-grid');
+    if (relatedGrid) {
+        relatedGrid.innerHTML = '';
+        relatedProducts.forEach(rel => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const title = currentLang === 'ar' 
+                ? (rel.name_ar || `كبش ${getBreedNameAr(rel.breed)}`)
+                : (rel.name_en || `${getBreedNameEn(rel.breed)}`);
+                
+            const ageLabel = currentLang === 'ar' ? 'شهراً' : 'Months';
+            const kgLabel = currentLang === 'ar' ? 'كجم' : 'Kg';
+            
+            card.innerHTML = `
+                <div class="p-card-image-box" style="background-image: url('${getSheepImage(rel)}'); ${rel.image && rel.image.includes('sheep-naimi.jpeg') ? 'background-position: 85% center !important;' : ''}">
+                    <button class="qv-trigger-btn" data-id="${rel.id}" title="${currentLang === 'ar' ? 'التفاصيل' : 'Details'}">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div class="p-card-details">
+                    <div>
+                        <span class="p-card-breed">${currentLang === 'ar' ? getBreedNameAr(rel.breed) : getBreedNameEn(rel.breed)}</span>
+                        <h3 class="p-card-title">${title} (${rel.id})</h3>
+                        <div class="p-card-specs">
+                            <span><i class="fa-solid fa-weight-hanging"></i> <strong class="num-font">${rel.weight}</strong> ${kgLabel}</span>
+                            <span><i class="fa-solid fa-calendar-days"></i> <strong class="num-font">${rel.age}</strong> ${ageLabel}</span>
+                        </div>
+                    </div>
+                    <div class="p-card-footer">
+                        <span class="p-card-price price-tag">${formatPrice(rel.priceDZD)}</span>
+                        <button class="add-cart-btn-icon btn-add-to-cart-action" data-id="${rel.id}" title="${currentLang === 'ar' ? 'أضف للسلة' : 'Add to Basket'}">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            relatedGrid.appendChild(card);
+        });
+    }
+    
+    switchView('product');
 }
 
-function closeQuickView() {
-    gsap.to('.modal-content', {
-        scale: 0.9,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-            document.getElementById('quick-view-modal').classList.add('hidden');
-            activeQuickViewProduct = null;
-        }
-    });
+async function submitQuickOrder(e) {
+    e.preventDefault();
+    if (!activeProduct) return;
+    
+    const fullName = document.getElementById('qo-fullname').value;
+    const phone = document.getElementById('qo-phone').value;
+    const state = document.getElementById('qo-state').value;
+    const address = document.getElementById('qo-address').value;
+    
+    const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+    
+    const orderData = {
+        id: orderId,
+        customerName: fullName,
+        customerPhone: phone,
+        customerState: state,
+        customerAddress: address,
+        items: [activeProduct],
+        totalDZD: activeProduct.priceDZD,
+        status: "قيد المراجعة (Pending)",
+        orderDate: new Date().toLocaleDateString()
+    };
+    
+    try {
+        await db.addOrder(orderData);
+        
+        const successMsg = currentLang === 'ar' 
+            ? `تهانينا! تم حجز أضحيتك بنجاح. رقم الطلب: ${orderId}` 
+            : `Congratulations! Order placed. ID: ${orderId}`;
+            
+        showToast(successMsg);
+        document.getElementById('quick-order-form').reset();
+        
+        setTimeout(() => {
+            switchView('dashboard');
+        }, 1000);
+        
+    } catch (err) {
+        console.error(err);
+        showToast("Error processing order.", "danger");
+    }
 }
 
 // ==========================================================================
@@ -1452,12 +1526,12 @@ function initAnimations() {
 
     // 2. Lenis Smooth Scroll Setup
     const lenis = new Lenis({
-        duration: 1.5,
+        duration: 0.6,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // premium ease out
         direction: 'vertical',
         gestureDirection: 'vertical',
         smooth: true,
-        mouseMultiplier: 1,
+        mouseMultiplier: 1.5,
         smoothTouch: false,
         touchMultiplier: 2,
         infinite: false,
@@ -1667,11 +1741,11 @@ async function initApp() {
     });
 
     // Store Card click events (delegated)
-    document.getElementById('catalog-products-grid').addEventListener('click', (e) => {
+    const handleProductGridClick = (e) => {
         const qvBtn = e.target.closest('.qv-trigger-btn');
         if (qvBtn) {
             const id = qvBtn.getAttribute('data-id');
-            openQuickView(id);
+            openProductPage(id);
             return;
         }
 
@@ -1680,17 +1754,15 @@ async function initApp() {
             const id = addCartBtn.getAttribute('data-id');
             addItemToCart(id);
         }
-    });
+    };
+    
+    document.getElementById('catalog-products-grid').addEventListener('click', handleProductGridClick);
+    const relatedGrid = document.getElementById('related-products-grid');
+    if(relatedGrid) relatedGrid.addEventListener('click', handleProductGridClick);
 
-    // Quickview modal action clicks
-    document.getElementById('btn-close-quickview').addEventListener('click', closeQuickView);
-    document.getElementById('quick-view-modal-overlay').addEventListener('click', closeQuickView);
-    document.getElementById('btn-qv-add-cart').addEventListener('click', () => {
-        if (activeQuickViewProduct) {
-            addItemToCart(activeQuickViewProduct.id);
-            closeQuickView();
-        }
-    });
+    // Quick order form
+    const quickOrderForm = document.getElementById('quick-order-form');
+    if(quickOrderForm) quickOrderForm.addEventListener('submit', submitQuickOrder);
 
     // Checkout trigger buttons
     document.getElementById('btn-go-checkout').addEventListener('click', () => {

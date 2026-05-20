@@ -407,7 +407,7 @@
                 <div class="dashboard-grid">
                     <!-- Left Column: Reserved Sheep List -->
                     <aside class="db-sidebar-list glass-card">
-                        <h3 class="sidebar-heading"><i class="fa-solid fa-list-check"></i> <span data-i18n="dash_reserved_title">كباشك المحجوزة</span></h3>
+                        <h3 class="sidebar-heading"><i class="fa-solid fa-list-check"></i> <span data-i18n="dash_reserved_title">كباشك المحجوزة</span> (<span id="saved-sheep-count">0</span>)</h3>
                         <div class="booked-sheep-list-wrapper" id="booked-sheep-container">
                             <!-- Populated dynamically from IndexedDB -->
                             <div class="empty-booked-state">
@@ -527,53 +527,99 @@
         </div>
 
 
-        <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
-        <div id="quick-view-modal" class="modal-wrapper-blur hidden">
-            <div class="modal-overlay" id="quick-view-modal-overlay"></div>
-            <div class="modal-content glass-card">
-                <button class="modal-close-btn" id="btn-close-quickview"><i class="fa-solid fa-xmark"></i></button>
+        <!-- ================= PRODUCT DETAILS VIEW ================= -->
+        <main id="product-view" class="view-section hidden">
+            <div class="container product-page-container">
+                <button class="btn btn-secondary back-to-store-btn" onclick="switchView('store')">
+                    <i class="fa-solid fa-arrow-right"></i> <span data-i18n="btn_back_store">العودة للمتجر</span>
+                </button>
                 
-                <div class="modal-body-grid">
-                    <div class="modal-visual-pane">
-                        <div class="modal-image-container" id="qv-image-box" style="display:flex; justify-content:center; align-items:center; height: 300px;">
-                            <!-- Image injected by JS -->
-                        </div>
-                        <div class="modal-visual-metrics">
-                            <div class="qv-metric">
-                                <span class="label" data-i18n="qv_weight">الوزن الفعلي</span>
-                                <strong class="value"><span id="qv-val-weight">55</span> كجم</strong>
-                            </div>
-                            <div class="qv-metric">
-                                <span class="label" data-i18n="qv_age">السن</span>
-                                <strong class="value"><span id="qv-val-age">14</span> <span data-i18n="qv_months">شهراً</span></strong>
-                            </div>
-                        </div>
+                <div class="product-top-grid">
+                    <!-- Image -->
+                    <div class="product-image-showcase glass-card" id="pv-image-box">
+                        <!-- Injected by JS -->
                     </div>
-
-                    <div class="modal-details-pane">
-                        <span class="breed-pill" id="qv-val-breed">أولاد جلال</span>
-                        <h2 class="qv-title" id="qv-val-id">KABCH-DZ ID: K-8291</h2>
-                        <div class="qv-price-tag" id="qv-val-price">0 د.ج</div>
+                    
+                    <!-- Quick Info & Order Form -->
+                    <div class="product-order-panel glass-card">
+                        <span class="breed-pill" id="pv-val-breed">أولاد جلال</span>
+                        <h1 class="pv-title" id="pv-val-title">كبش فاخر</h1>
+                        <p class="pv-id" id="pv-val-id">KABCH-DZ ID: K-8291</p>
                         
-                        <p class="qv-desc" id="qv-val-desc">تمت تربية هذا الكبش في مراعي السهوب الذهبية بالجلفة على التغذية الطبيعية المركزة بالشيح والشعير، مما يضمن خلو لحمه من الدهون الزائدة وسلامته الكاملة.</p>
-                        
-                        <div class="health-pass-mini-card">
-                            <h4><i class="fa-solid fa-shield-check icon-green"></i> <span data-i18n="qv_health_title">الضمان الصحي والشرعي</span></h4>
-                            <ul>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health1">خالٍ من العرج، العور، والكسور الشرعية.</span></li>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health2">خاضع للتلقيح السنوي وفحص البيطري أسبوعياً.</span></li>
-                            </ul>
+                        <div class="pv-metrics-row">
+                            <div class="pv-metric">
+                                <span class="label" data-i18n="qv_weight">الوزن الفعلي</span>
+                                <strong class="value"><span id="pv-val-weight">55</span> كجم</strong>
+                            </div>
+                            <div class="pv-metric">
+                                <span class="label" data-i18n="qv_age">السن</span>
+                                <strong class="value"><span id="pv-val-age">14</span> <span data-i18n="qv_months">شهراً</span></strong>
+                            </div>
                         </div>
-
-                        <div class="qv-actions-row">
-                            <button class="btn btn-primary btn-lg btn-block" id="btn-qv-add-cart">
-                                <span data-i18n="btn_add_to_cart">أضف للسلة واحجز الآن</span> <i class="fa-solid fa-cart-plus"></i>
-                            </button>
+                        
+                        <div class="pv-price-tag" id="pv-val-price">0 د.ج</div>
+                        
+                        <!-- Quick Order Form -->
+                        <div class="quick-order-form-container">
+                            <h3 class="quick-order-title"><i class="fa-solid fa-bolt"></i> طلب سريع</h3>
+                            <form id="quick-order-form">
+                                <div class="form-grid compact-form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">الاسم الكامل</label>
+                                        <input type="text" id="qo-fullname" required placeholder="مثال: محمد الجزائري" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">رقم الهاتف</label>
+                                        <input type="tel" id="qo-phone" required placeholder="مثال: 0661234567" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">الولاية</label>
+                                        <select id="qo-state" required class="form-input form-select">
+                                            <option value="" disabled selected>اختر ولايتك</option>
+                                            <option value="Alger">الجزائر العاصمة (Alger)</option>
+                                            <option value="Djelfa">الجلفة (Djelfa)</option>
+                                            <option value="Oran">وهران (Oran)</option>
+                                            <option value="Constantine">قسنطينة (Constantine)</option>
+                                            <option value="Setif">سطيف (Setif)</option>
+                                            <option value="Tiaret">تيارت (Tiaret)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">العنوان</label>
+                                        <input type="text" id="qo-address" required placeholder="مثال: حي الصنوبر" class="form-input">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" id="btn-submit-quick-order">
+                                    <span>تأكيد الحجز المباشر</span> <i class="fa-solid fa-check"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- Product Details -->
+                <div class="product-details-section glass-card">
+                    <h2><i class="fa-solid fa-circle-info"></i> تفاصيل الأضحية</h2>
+                    <p class="pv-desc" id="pv-val-desc">تمت تربية هذا الكبش في مراعي...</p>
+                    
+                    <div class="health-pass-mini-card">
+                        <h4><i class="fa-solid fa-shield-check icon-green"></i> <span data-i18n="qv_health_title">الضمان الصحي والشرعي</span></h4>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health1">خالٍ من العرج، العور، والكسور الشرعية.</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health2">خاضع للتلقيح السنوي وفحص البيطري أسبوعياً.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <div class="related-products-section">
+                    <h2 class="text-center section-title">كباش النخبة المشابهة</h2>
+                    <div class="products-grid" id="related-products-grid">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
 
 
         <!-- ================= CHECKOUT DIALOG MODAL ================= -->
@@ -601,7 +647,7 @@
 
                         <!-- State / Wilaya -->
                         <div class="form-group">
-                            <label class="form-label" for="co-state" data-i18n="form_state">الولاية / المدينة</label>
+                            <label class="form-label" for="co-state" data-i18n="form_state">الولاية</label>
                             <select id="co-state" required class="form-input form-select">
                                 <option value="" disabled selected data-i18n="form_state_placeholder">اختر ولايتك</option>
                                 <option value="Alger">الجزائر العاصمة (Alger)</option>
@@ -614,7 +660,7 @@
                         </div>
 
                         <!-- Detailed Address -->
-                        <div class="form-group address-full-width">
+                        <div class="form-group address-input-group">
                             <label class="form-label" for="co-address" data-i18n="form_address">العنوان بالتفصيل</label>
                             <input type="text" id="co-address" required placeholder="مثال: حي الصنوبر، عمارة 12، الطابق 3" class="form-input">
                         </div>

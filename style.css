@@ -2455,32 +2455,36 @@ html[lang="ar"] .modal-close-btn {
 
 /* Checkout Form Layout */
 .checkout-modal-card {
-    max-width: 650px;
+    max-width: 600px;
+    padding: 35px;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .checkout-title {
-    font-size: 2rem;
-    margin-bottom: 8px;
+    font-size: 1.6rem;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .checkout-subtitle {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .address-full-width {
@@ -2497,10 +2501,10 @@ html[lang="ar"] .modal-close-btn {
     background: rgba(255,255,255,0.02);
     border: 1px solid var(--border-glass);
     border-radius: var(--border-radius-sm);
-    padding: 14px 18px;
+    padding: 10px 14px;
     color: var(--text-primary);
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: var(--transition-fast);
 }
 
@@ -2522,12 +2526,12 @@ html[lang="ar"] .modal-close-btn {
 .checkout-summary-box {
     background: rgba(255,255,255,0.02);
     border: 1px solid var(--border-glass);
-    padding: 20px;
+    padding: 15px;
     border-radius: var(--border-radius-sm);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .summary-line {
@@ -2774,4 +2778,158 @@ html[lang="ar"] .modal-close-btn {
     }
 }
 
+/* ================= PRODUCT DETAILS VIEW ================= */
+.product-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
 
+.back-to-store-btn {
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.product-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+.product-image-showcase {
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+}
+
+.product-order-panel {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: var(--border-radius-lg);
+}
+
+.pv-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: var(--text-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pv-id {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.pv-metrics-row {
+    display: flex;
+    gap: 30px;
+    margin: 15px 0;
+}
+
+.pv-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.pv-metric .label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pv-metric .value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.pv-price-tag {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-light);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), transparent);
+    padding: 15px 25px;
+    border-radius: var(--border-radius-sm);
+    border-left: 4px solid var(--accent-primary);
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.quick-order-form-container {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-glass);
+    padding-top: 30px;
+}
+
+.quick-order-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+
+.quick-order-title i {
+    color: var(--accent-primary);
+}
+
+.compact-form-grid {
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.compact-form-grid .form-input {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+}
+
+.product-details-section {
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pv-desc {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.related-products-section {
+    margin-top: 40px;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 992px) {
+    .product-top-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-image-showcase {
+        min-height: 300px;
+    }
+}
