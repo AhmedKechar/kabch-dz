@@ -1,0 +1,16 @@
+{
+  "name": "kabch-el3id",
+  "version": "1.0.0",
+  "description": "Premium Kabch Landing Page",
+  "main": "app.js",
+  "scripts": {
+    "dev": "serve . -p 3000",
+    "start": "serve . -p 3000"
+  },
+  "dependencies": {
+    "motion": "^12.39.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

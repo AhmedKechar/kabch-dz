@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="doc_title">كبش | أضحيتك برؤية تكنولوجية فاخرة</title>
+    
+    <!-- Favicon: Gold Ram SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='46' fill='none' stroke='%23FFB300' stroke-width='6' stroke-dasharray='3,2'/><path d='M 28,68 C 28,68 31,52 38,48 C 45,44 58,45 64,43 C 70,41 73,36 75,28 C 76,23 79,20 85,18 C 89,16 93,18 92,23 C 91,27 87,31 82,34 C 76,38 74,44 76,51 C 77,55 74,62 72,68 M 83,23 C 75,23 72,13 80,7 C 91,1 103,9 101,21 C 99,30 87,34 80,28 C 75,23 78,18 83,20' fill='none' stroke='%23FFB300' stroke-width='6' stroke-linecap='round'/></svg>">
+    
+    <!-- Google Fonts: Cairo for Arabic & Outfit for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css?v=2.4">
+</head>
+<body class="dark-theme custom-cursor-active">
+    
+    <!-- Custom Mouse Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-follower"></div>
+
+    <!-- Screen transition curtain -->
+    <div class="transition-cols">
+        <div class="t-col"></div>
+        <div class="t-col"></div>
+        <div class="t-col"></div>
+        <div class="t-col"></div>
+        <div class="t-col"></div>
+        <div class="curtain-logo">
+            <svg viewBox="0 0 100 100" class="curtain-logo-svg" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="gold-grad-curtain" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFE082" />
+                        <stop offset="50%" stop-color="#FFB300" />
+                        <stop offset="100%" stop-color="#FF6F00" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gold-grad-curtain)" stroke-width="2.5" stroke-dasharray="3,2"/>
+                <path d="M 28,68 C 28,68 31,52 38,48 C 45,44 58,45 64,43 C 70,41 73,36 75,28 C 76,23 79,20 85,18 C 89,16 93,18 92,23 C 91,27 87,31 82,34 C 76,38 74,44 76,51 C 77,55 74,62 72,68 M 83,23 C 75,23 72,13 80,7 C 91,1 103,9 101,21 C 99,30 87,34 80,28 C 75,23 78,18 83,20" fill="none" stroke="url(#gold-grad-curtain)" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span>KABCH-DZ</span>
+        </div>
+    </div>
+
+    <!-- Toast Notification container -->
+    <div id="toast-container"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="glass-header">
+        <div class="nav-container">
+            <a href="#" class="logo" id="logo-btn">
+                <span class="logo-icon">
+                    <svg class="logo-ram-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gold-grad-header" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFE082" />
+                                <stop offset="50%" stop-color="#FFB300" />
+                                <stop offset="100%" stop-color="#FF6F00" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gold-grad-header)" stroke-width="2.5" stroke-dasharray="3,2"/>
+                        <path d="M 28,68 C 28,68 31,52 38,48 C 45,44 58,45 64,43 C 70,41 73,36 75,28 C 76,23 79,20 85,18 C 89,16 93,18 92,23 C 91,27 87,31 82,34 C 76,38 74,44 76,51 C 77,55 74,62 72,68 M 83,23 C 75,23 72,13 80,7 C 91,1 103,9 101,21 C 99,30 87,34 80,28 C 75,23 78,18 83,20" fill="none" stroke="url(#gold-grad-header)" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="logo-text">KABCH-DZ</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link-item active" data-view="home" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="#" class="nav-link-item" data-view="store" data-i18n="nav_store">المتجر الفاخر</a></li>
+                <li><a href="#" class="nav-link-item" data-view="dashboard" data-i18n="nav_dashboard">لوحة المراقبة</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <!-- Currency Toggle Switch -->
+
+                <!-- Cart Toggle -->
+                <button id="cart-toggle-btn" class="nav-action-btn cart-btn">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-count-badge" id="cart-badge-count">0</span>
+                </button>
+
+                <a href="#" class="btn btn-primary nav-cta" data-view="store" data-i18n="nav_cta">احجز أضحيتك</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Smooth Scroll Container (Lenis) -->
+    <div id="scroll-container">
+
+        <!-- ================= HOME VIEW ================= -->
+        <main id="home-view" class="view-section active">
+            <!-- Hero Section -->
+            <!-- Hero Section -->
+            <header class="hero-section premium-hero">
+                <div class="hero-glow-radial premium-glow"></div>
+                <div class="container hero-container-premium">
+                    
+                    <div class="hero-visual-premium">
+                        <div class="hero-dark-overlay"></div>
+                        <div class="main-visual-container-premium" data-parallax="0.05">
+                            <div class="glow-orb-premium"></div>
+                            <div class="hero-sheep-image-wrapper">
+                                <img src="assets/images/hero_sheep_premium.png" alt="كبش النخبة" class="premium-sheep-img" id="hero-sheep-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-content-premium">
+                        <h1 class="split-title animate-split premium-h1">
+                            <span class="hero-word">أضحيتك</span>
+                            <span class="hero-word gold-gradient-text">شفافية مطلقة</span>
+                        </h1>
+                        <p class="hero-desc premium-desc" id="hero-paragraph">
+                            <span class="word">اختر</span> <span class="word">كبشك</span> <span class="word">وتابعه</span> <span class="word">مباشرة</span> <span class="word">24/7</span> <span class="word">من</span> <span class="word">مراعينا</span> <span class="word">العضوية.</span>
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary btn-lg btn-navigate btn-magnetic" data-view="store">
+                                <span class="btn-text" data-i18n="hero_btn_explore">استكشف حظيرة النخبة</span> <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <button class="btn btn-secondary btn-lg btn-navigate btn-magnetic" data-view="dashboard">
+                                <span class="btn-text" data-i18n="hero_btn_dash">لوحة المتابعة الذكية</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+
+            </header>
+
+
+
+            <!-- Sticky Stack Section -->
+            <section class="experience-section">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <div class="section-badge" data-i18n="exp_badge">التكنولوجيا الزراعية الفاخرة</div>
+                        <h2 class="section-title" data-i18n="exp_title">ريادة الرعاية والشفافية الرقمية</h2>
+                        <p class="section-subtitle" data-i18n="exp_subtitle">لقد صممنا تجربة تضمن لك جودة لحم استثنائية وراحة بال دينية وصحية تامة طيلة فترة رعاية أضحيتك.</p>
+                    </div>
+
+                    <div class="sticky-stack-container">
+                        <!-- Card 1 -->
+                        <div class="stack-item active">
+                            <div class="stack-layout">
+                                <div class="stack-text">
+                                    <span class="stack-num">01</span>
+                                    <h3 data-i18n="stack1_title">بث مباشر شخصي 24/7 لأضحيتك</h3>
+                                    <p data-i18n="stack1_desc">بمجرد اختيار كبشك، نخصص له قلادة ذكية بتقنية الـ RFID وكاميرا تتبع آلية تعمل بالذكاء الاصطناعي في حقولنا. شاهد أضحيتك وهي ترعى وتتحرك في أي وقت تشاء مباشرة عبر لوحة التحكم الخاصة بك.</p>
+                                    <ul class="stack-bullets">
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack1_b1">كاميرات ذكاء اصطناعي تتتبع خروفك ذاتياً</span></li>
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack1_b2">بث مستمر عالي الدقة HD مشفر بالكامل</span></li>
+                                    </ul>
+                                </div>
+                                <div class="stack-visual">
+                                    <div class="stack-image-box">
+                                        <img src="assets/images/live-stream.png" alt="بث مباشر للمراعي" class="stack-img">
+                                        <div class="live-badge"><span class="rec-dot-inline"></span> بث مباشر</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="stack-item">
+                            <div class="stack-layout">
+                                <div class="stack-text">
+                                    <span class="stack-num">02</span>
+                                    <h3 data-i18n="stack2_title">الجواز البيطري والتحصين الرقمي</h3>
+                                    <p data-i18n="stack2_desc">لكل كبش سجل طبي رقمي غير قابل للتعديل مسجل على قاعدة البيانات المحلية لدينا. يوثق السجل الفحوصات الطبية الأسبوعية، التطعيمات، والوجبات الغذائية المعتمدة على الأعشاب والشعير الطبيعي الخالي من الهرمونات.</p>
+                                    <ul class="stack-bullets">
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack2_b1">غذاء نباتي طبيعي 100% خالٍ من المضادات الحيوية</span></li>
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack2_b2">تقرير صحي رسمي معتمد موقع من بيطري المنصة</span></li>
+                                    </ul>
+                                </div>
+                                <div class="stack-visual">
+                                    <div class="medical-passport-mockup">
+                                        <div class="passport-header">
+                                            <i class="fa-solid fa-passport"></i>
+                                            <span data-i18n="passport_header">دفتر الصحة الرقمي</span>
+                                        </div>
+                                        <div class="passport-content">
+                                            <div class="passport-line">
+                                                <span data-i18n="passport_breed">السلالة:</span> <strong>أولاد جلال</strong>
+                                            </div>
+                                            <div class="passport-line">
+                                                <span data-i18n="passport_status">الحالة الصحية:</span> <strong class="text-green" data-i18n="passport_status_val">سليم وخالٍ من العيوب</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="stack-item">
+                            <div class="stack-layout">
+                                <div class="stack-text">
+                                    <span class="stack-num">03</span>
+                                    <h3 data-i18n="stack3_title">توصيل مبرد معقم فجر يوم العيد</h3>
+                                    <p data-i18n="stack3_desc">نمتلك أسطولاً من شاحنات التبريد الذكية المزودة بأنظمة تتبع حراري مستمر. بعد الذبح الشرعي المعتمد، نقوم بتغليف اللحوم بتقنية سحب الهواء (Vacuum) وتوصيلها مبردة لباب منزلك لضمان سلامتها وطراوتها.</p>
+                                    <ul class="stack-bullets">
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack3_b1">حفظ اللحوم عند درجة حرارة ثابتة (2°م - 4°م)</span></li>
+                                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="stack3_b2">تحديد موعد دقيق للتسليم عبر تتبع نظام GPS</span></li>
+                                    </ul>
+                                </div>
+                                <div class="stack-visual">
+                                    <div class="stack-image-box">
+                                        <img src="assets/images/livraison.png" alt="توصيل مبرد" class="stack-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Showcase (horizontal scroll layout) -->
+            <section class="pastures-gallery">
+                <div class="horizontal-scroll-container-outer">
+                    <div class="horizontal-scroll-intro">
+                        <div class="container">
+                            <div class="section-badge" data-i18n="gallery_badge">شركاء المراعي النظيفة</div>
+                            <h2 class="section-title" data-i18n="gallery_title">مراعي جبلية شاسعة لتربية مستدامة</h2>
+                            <p class="section-subtitle" data-i18n="gallery_subtitle">نعتمد على مزارع رائدة تم اختيارها بعناية في الجزائر لضمان أفضل تغذية وجودة لحياة الماشية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="horizontal-scroll-wrapper">
+                        <!-- Farm 1 -->
+                        <div class="pasture-card flex-card" style="background-image: linear-gradient(to top, rgba(11,12,12,0.75) 0%, rgba(11,12,12,0.1) 100%), url('assets/images/farm1-djelfa.png'); background-size: cover; background-position: center;">
+                            <div class="card-bg-gradient gold-glow"></div>
+                            <div class="pasture-content">
+                                <span class="p-location"><i class="fa-solid fa-map-pin"></i> <span data-i18n="farm1_loc">الهضاب العليا، الجلفة</span></span>
+                                <h3 data-i18n="farm1_name">مراعي السهوب الذهبية</h3>
+                                <p data-i18n="farm1_desc">تشتهر هذه المنطقة بجفاف هوائها وأعشاب الشيح والحرمل المغذية، مما يمنح سلالة أولاد جلال قوة بدنية ولحماً قليل الدهون ذا نكهة غنية فريدة.</p>
+                                <div class="pasture-stats">
+                                    <div class="p-stat"><strong>3500+</strong><span data-i18n="farm_stat_heads">رأس ماشية</span></div>
+                                    <div class="p-stat"><strong>4.9/5</strong><span data-i18n="farm_stat_rating">تقييم النخبة</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Farm 2 -->
+                        <div class="pasture-card flex-card" style="background-image: linear-gradient(to top, rgba(11,12,12,0.75) 0%, rgba(11,12,12,0.1) 100%), url('assets/images/farm2-aures.png'); background-size: cover; background-position: center;">
+                            <div class="card-bg-gradient green-glow"></div>
+                            <div class="pasture-content">
+                                <span class="p-location"><i class="fa-solid fa-map-pin"></i> <span data-i18n="farm2_loc">جبال الأوراس الشامخة</span></span>
+                                <h3 data-i18n="farm2_name">مزرعة قمم الأوراس العضوية</h3>
+                                <p data-i18n="farm2_desc">ترعى الأغنام هنا على سفوح جبال الأوراس الباردة وتتغذى على أعشاب جبلية طبيعية وتتحرك بحرية في مساحات شاسعة، مما يكسبها مناعة طبيعية خارقة ولحماً طرياً.</p>
+                                <div class="pasture-stats">
+                                    <div class="p-stat"><strong>2200+</strong><span data-i18n="farm_stat_heads">رأس ماشية</span></div>
+                                    <div class="p-stat"><strong>4.85/5</strong><span data-i18n="farm_stat_rating">تقييم النخبة</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Farm 3 -->
+                        <div class="pasture-card flex-card" style="background-image: linear-gradient(to top, rgba(11,12,12,0.75) 0%, rgba(11,12,12,0.1) 100%), url('assets/images/farm3-tiaret.png'); background-size: cover; background-position: center;">
+                            <div class="card-bg-gradient blue-glow"></div>
+                            <div class="pasture-content">
+                                <span class="p-location"><i class="fa-solid fa-map-pin"></i> <span data-i18n="farm3_loc">سهول التيارت الخصبة</span></span>
+                                <h3 data-i18n="farm3_name">مزارع السنابل الخضراء بتيارت</h3>
+                                <p data-i18n="farm3_desc">مزارع نموذجية حديثة تعتمد على زراعة الشعير العضوي والبرسيم المروي بمياه الآبار العذبة النقية، وتوفر الفحص والتحصين المبرمج لكل رأس أسبوعياً.</p>
+                                <div class="pasture-stats">
+                                    <div class="p-stat"><strong>4100+</strong><span data-i18n="farm_stat_heads">رأس ماشية</span></div>
+                                    <div class="p-stat"><strong>4.95/5</strong><span data-i18n="farm_stat_rating">تقييم النخبة</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+        <!-- ================= STORE VIEW ================= -->
+        <main id="store-view" class="view-section hidden">
+            <div class="store-banner-header">
+                <div class="container text-center">
+                    <span class="section-badge" data-i18n="store_badge">حظيرة كبش الرقمية</span>
+                    <h1 class="store-main-title" data-i18n="store_title">اختر أضحيتك بعناية تامة</h1>
+                    <p class="store-subtitle" data-i18n="store_subtitle">جميع الكباش المعروضة سلالات بلدية نقية، خاضعة للفحص البيطري والشرعي، وتتغذى على أعلاف طبيعية بنسبة 100%.</p>
+                </div>
+            </div>
+
+            <div class="container store-layout">
+                <!-- Sidebar Filters -->
+                <aside class="store-filters-sidebar glass-card">
+                    <div class="sidebar-header">
+                        <h3><i class="fa-solid fa-sliders"></i> <span data-i18n="filter_title">خيارات التصفية</span></h3>
+                        <button id="btn-reset-filters" class="text-btn" data-i18n="filter_reset">إعادة تعيين</button>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="filter-group">
+                        <label class="filter-label" data-i18n="filter_search">البحث بالمعرّف أو السلالة</label>
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" id="search-input" placeholder="مثال: أولاد جلال...">
+                        </div>
+                    </div>
+
+                    <!-- Breed Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label" data-i18n="filter_breed">السلالة</label>
+                        <div class="filter-options">
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="ouled-djellal" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_ouled_djellal">أولاد جلال</span>
+                            </label>
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="naimi" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_naimi">نعيمي بلدي</span>
+                            </label>
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="rembi" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_rembi">الرمبي الجزائري</span>
+                            </label>
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="hamra" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_hamra">الحمراء الغربية</span>
+                            </label>
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="tadmit" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_tadmit">تادمت الجلفة</span>
+                            </label>
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" class="breed-filter-checkbox" value="barbarin" checked>
+                                <span class="checkbox-box"></span>
+                                <span data-i18n="breed_barbarin">البربرية التونسية</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Weight Range Filter -->
+                    <div class="filter-group">
+                        <div class="slider-header-flex">
+                            <label class="filter-label" data-i18n="filter_weight">الوزن المستهدف (كجم)</label>
+                            <span class="filter-value-display"><span id="filter-weight-val">45</span>+ كجم</span>
+                        </div>
+                        <input type="range" id="filter-weight-slider" min="40" max="80" value="40" class="custom-slider">
+                        <div class="slider-ticks">
+                            <span>40</span>
+                            <span>60</span>
+                            <span>80</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Store Content -->
+                <div class="store-products-area">
+                    <!-- Sorting and Grid Controls -->
+                    <div class="products-header glass-card">
+                        <div class="results-count">
+                            <span data-i18n="store_results_found">تم العثور على</span>: <strong id="results-count-num" class="accent-gold">0</strong> <span data-i18n="store_results_unit">رأس كبش فاخر</span>
+                        </div>
+                        <div class="sort-selector-wrapper">
+                            <label for="sort-select" data-i18n="store_sort_by">ترتيب حسب:</label>
+                            <select id="sort-select" class="custom-select">
+                                <option value="default" data-i18n="sort_default">الافتراضي (الأفضل جودة)</option>
+                                <option value="price-asc" data-i18n="sort_price_asc">السعر (من الأقل للأعلى)</option>
+                                <option value="price-desc" data-i18n="sort_price_desc">السعر (من الأعلى للأقل)</option>
+                                <option value="weight-desc" data-i18n="sort_weight_desc">الوزن (الأثقل أولاً)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="products-grid" id="catalog-products-grid">
+                        <!-- Dynamic JS Generated cards will go here -->
+                        <div class="grid-loading-state">
+                            <div class="spinner"></div>
+                            <p data-i18n="store_loading_items">جاري تحميل حظيرة كبش الفاخرة...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ================= DASHBOARD VIEW ================= -->
+        <main id="dashboard-view" class="view-section hidden">
+            <div class="container dashboard-container-layout">
+                <div class="dashboard-banner-block">
+                    <span class="section-badge" data-i18n="dash_badge">بوابة المتابعة البيومترية</span>
+                    <h1 class="dash-title" data-i18n="dash_title">لوحة التحكم والمراقبة المباشرة</h1>
+                    <p class="dash-subtitle" data-i18n="dash_subtitle">تتبع المؤشرات الحيوية لكباشك المحجوزة، وافتح كاميرا البث المباشر للتحقق من الأضحية في أي وقت.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Left Column: Reserved Sheep List -->
+                    <aside class="db-sidebar-list glass-card">
+                        <h3 class="sidebar-heading"><i class="fa-solid fa-list-check"></i> <span data-i18n="dash_reserved_title">كباشك المحجوزة</span></h3>
+                        <div class="booked-sheep-list-wrapper" id="booked-sheep-container">
+                            <!-- Populated dynamically from IndexedDB -->
+                            <div class="empty-booked-state">
+                                <i class="fa-regular fa-folder-open"></i>
+                                <p data-i18n="dash_no_sheep">لا توجد أضاحي محجوزة بهذا المتصفح حالياً. تفضل بزيارة المتجر لحجز أضحيتك الأولى.</p>
+                                <button class="btn btn-primary btn-sm btn-navigate" data-view="store" data-i18n="dash_btn_go_store">انتقل للمتجر الآن</button>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Right Column: Interactive Console and CCTV live stream -->
+                    <div class="db-main-panel glass-card">
+                        <!-- No Selection View -->
+                        <div id="db-no-selection" class="empty-main-panel-state">
+                            <i class="fa-solid fa-desktop-radar"></i>
+                            <p data-i18n="dash_select_instruction">يرجى اختيار أضحية من القائمة الجانبية لتنشيط الاتصال البيومتري وتشغيل كاميرا المزرعة الحية.</p>
+                        </div>
+
+                        <!-- Active Sheep Telemetry panel -->
+                        <div id="db-active-panel" class="db-active-layout hidden">
+                            <!-- Telemetry Header -->
+                            <div class="db-telemetry-header">
+                                <div class="sheep-card-header-info">
+                                    <h2 id="active-sheep-title">كبش أولاد جلال المميز</h2>
+                                    <p>كود الأضحية: <strong id="active-sheep-id" class="accent-gold">K-9281</strong> | <span id="active-sheep-breed">أولاد جلال</span></p>
+                                </div>
+                                <div class="livestream-status-badge">
+                                    <span class="live-blink-dot"></span>
+                                    <span data-i18n="dash_connected">البث المباشر متصل</span>
+                                </div>
+                            </div>
+
+                            <!-- Mock CCTV Stream screen -->
+                            <div class="cctv-live-feed-screen">
+                                <div class="cctv-canvas-hud">
+                                    <div class="hud-top">
+                                        <span id="active-cctv-cam">CCTV CAM 04 - حقول الجلفة</span>
+                                        <span id="active-cctv-time">10:54:32</span>
+                                    </div>
+                                    <div class="hud-bottom">
+                                        <span><i class="fa-solid fa-wifi"></i> 142 Mbps</span>
+                                        <span><i class="fa-solid fa-battery-three-quarters"></i> 89%</span>
+                                    </div>
+                                    <div class="hud-overlay-filter"></div>
+                                </div>
+                                <div class="cctv-mock-graphic">
+                                    <div class="mock-cctv-sheep-animation">
+                                        <!-- Animated CSS SVG Sheep representing current state -->
+                                        <i class="fa-solid fa-cow cctv-sheep-icon"></i>
+                                    </div>
+                                    <div class="cctv-grass-bg"></div>
+                                </div>
+                            </div>
+
+                            <!-- Live Telemetry Values -->
+                            <div class="telemetry-stats-grid">
+                                <div class="telemetry-box">
+                                    <span class="tel-label" data-i18n="tel_weight">الوزن الحالي</span>
+                                    <span class="tel-val"><span id="tel-val-weight">56</span> <span class="unit" data-i18n="unit_kg">كجم</span></span>
+                                </div>
+                                <div class="telemetry-box">
+                                    <span class="tel-label" data-i18n="tel_bpm">نبضات القلب</span>
+                                    <span class="tel-val text-red"><span id="tel-val-bpm">72</span> <span class="unit" data-i18n="unit_bpm">ن/د</span></span>
+                                </div>
+                                <div class="telemetry-box">
+                                    <span class="tel-label" data-i18n="tel_temp">درجة الحرارة</span>
+                                    <span class="tel-val"><span id="tel-val-temp">39.1</span> <span class="unit">°م</span></span>
+                                </div>
+                                <div class="telemetry-box">
+                                    <span class="tel-label" data-i18n="tel_steps">الخطوات اليومية</span>
+                                    <span class="tel-val text-green"><span id="tel-val-steps">4820</span> <span class="unit" data-i18n="unit_steps">خطوة</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Telemetry Actions Panel -->
+                            <div class="telemetry-actions-area">
+                                <h3><i class="fa-solid fa-gamepad"></i> <span data-i18n="dash_actions_title">التحكم التفاعلي بالأضحية</span></h3>
+                                <p class="actions-desc" data-i18n="dash_actions_desc">قم بإرسال أوامر فورية للطوق الذكي المغذي للكبش الخاص بك لمحاكاة الأنشطة التالية:</p>
+                                <div class="action-buttons-flex">
+                                    <button class="btn btn-secondary" id="btn-feed-telemetry"><i class="fa-solid fa-seedling"></i> <span data-i18n="btn_feed_action">تغذية بمكافأة شعير</span></button>
+                                    <button class="btn btn-secondary" id="btn-pulse-telemetry"><i class="fa-solid fa-heart-pulse"></i> <span data-i18n="btn_scare_action">تحفيز نشاط حركي</span></button>
+                                    <button class="btn btn-danger" id="btn-cancel-reservation"><i class="fa-solid fa-ban"></i> <span data-i18n="btn_cancel_action">إلغاء حجز هذه الأضحية</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ================= GLOBAL CART DRAWER ================= -->
+        <div id="cart-drawer" class="cart-slide-drawer">
+            <div class="cart-drawer-overlay" id="cart-drawer-overlay-bg"></div>
+            <div class="cart-drawer-content glass-card">
+                <div class="cart-drawer-header">
+                    <h2><i class="fa-solid fa-basket-shopping"></i> <span data-i18n="cart_title">سلة المحجوزات</span></h2>
+                    <button class="close-drawer-btn" id="btn-close-cart"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="cart-items-container" id="cart-items-wrapper">
+                    <!-- Populated dynamically by JS -->
+                    <div class="empty-cart-state">
+                        <i class="fa-solid fa-basket-shopping-simple"></i>
+                        <p data-i18n="cart_empty">السلة فارغة حالياً. تصفح الكباش المتاحة وقم بإضافة خيارك المفضل.</p>
+                    </div>
+                </div>
+
+                <div class="cart-drawer-footer">
+                    <div class="cart-price-summary">
+                        <span data-i18n="cart_total">المجموع الإجمالي:</span>
+                        <strong class="total-price-text" id="cart-total-price">0 د.ج</strong>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="btn-go-checkout"><span data-i18n="cart_btn_checkout">الذهاب لتأكيد الحجز</span> <i class="fa-solid fa-credit-card"></i></button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
+        <div id="quick-view-modal" class="modal-wrapper-blur hidden">
+            <div class="modal-overlay" id="quick-view-modal-overlay"></div>
+            <div class="modal-content glass-card">
+                <button class="modal-close-btn" id="btn-close-quickview"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="modal-body-grid">
+                    <div class="modal-visual-pane">
+                        <div class="modal-image-container" id="qv-image-box" style="display:flex; justify-content:center; align-items:center; height: 300px;">
+                            <!-- Image injected by JS -->
+                        </div>
+                        <div class="modal-visual-metrics">
+                            <div class="qv-metric">
+                                <span class="label" data-i18n="qv_weight">الوزن الفعلي</span>
+                                <strong class="value"><span id="qv-val-weight">55</span> كجم</strong>
+                            </div>
+                            <div class="qv-metric">
+                                <span class="label" data-i18n="qv_age">السن</span>
+                                <strong class="value"><span id="qv-val-age">14</span> <span data-i18n="qv_months">شهراً</span></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-details-pane">
+                        <span class="breed-pill" id="qv-val-breed">أولاد جلال</span>
+                        <h2 class="qv-title" id="qv-val-id">KABCH-DZ ID: K-8291</h2>
+                        <div class="qv-price-tag" id="qv-val-price">0 د.ج</div>
+                        
+                        <p class="qv-desc" id="qv-val-desc">تمت تربية هذا الكبش في مراعي السهوب الذهبية بالجلفة على التغذية الطبيعية المركزة بالشيح والشعير، مما يضمن خلو لحمه من الدهون الزائدة وسلامته الكاملة.</p>
+                        
+                        <div class="health-pass-mini-card">
+                            <h4><i class="fa-solid fa-shield-check icon-green"></i> <span data-i18n="qv_health_title">الضمان الصحي والشرعي</span></h4>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health1">خالٍ من العرج، العور، والكسور الشرعية.</span></li>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="qv_health2">خاضع للتلقيح السنوي وفحص البيطري أسبوعياً.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="qv-actions-row">
+                            <button class="btn btn-primary btn-lg btn-block" id="btn-qv-add-cart">
+                                <span data-i18n="btn_add_to_cart">أضف للسلة واحجز الآن</span> <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= CHECKOUT DIALOG MODAL ================= -->
+        <div id="checkout-modal" class="modal-wrapper-blur hidden">
+            <div class="modal-overlay" id="checkout-modal-overlay"></div>
+            <div class="modal-content glass-card checkout-modal-card">
+                <button class="modal-close-btn" id="btn-close-checkout"><i class="fa-solid fa-xmark"></i></button>
+                
+                <h2 class="checkout-title"><i class="fa-solid fa-truck-ramp-box"></i> <span data-i18n="checkout_title">تأكيد حجز الأضحية</span></h2>
+                <p class="checkout-subtitle" data-i18n="checkout_subtitle">الدفع نقداً عند الاستلام فجر يوم العيد. يرجى ملء بيانات التوصيل الأساسية لتسجيل طلبيتك.</p>
+                
+                <form id="checkout-form">
+                    <div class="form-grid">
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="form-label" for="co-fullname" data-i18n="form_name">الاسم الكامل</label>
+                            <input type="text" id="co-fullname" required placeholder="مثال: محمد الجزائري" class="form-input">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="form-group">
+                            <label class="form-label" for="co-phone" data-i18n="form_phone">رقم الهاتف</label>
+                            <input type="tel" id="co-phone" required placeholder="مثال: 0661234567" class="form-input">
+                        </div>
+
+                        <!-- State / Wilaya -->
+                        <div class="form-group">
+                            <label class="form-label" for="co-state" data-i18n="form_state">الولاية / المدينة</label>
+                            <select id="co-state" required class="form-input form-select">
+                                <option value="" disabled selected data-i18n="form_state_placeholder">اختر ولايتك</option>
+                                <option value="Alger">الجزائر العاصمة (Alger)</option>
+                                <option value="Djelfa">الجلفة (Djelfa)</option>
+                                <option value="Oran">وهران (Oran)</option>
+                                <option value="Constantine">قسنطينة (Constantine)</option>
+                                <option value="Setif">سطيف (Setif)</option>
+                                <option value="Tiaret">تيارت (Tiaret)</option>
+                            </select>
+                        </div>
+
+                        <!-- Detailed Address -->
+                        <div class="form-group address-full-width">
+                            <label class="form-label" for="co-address" data-i18n="form_address">العنوان بالتفصيل</label>
+                            <input type="text" id="co-address" required placeholder="مثال: حي الصنوبر، عمارة 12، الطابق 3" class="form-input">
+                        </div>
+                    </div>
+
+                    <!-- Payment summary inside checkout -->
+                    <div class="checkout-summary-box">
+                        <div class="summary-line">
+                            <span data-i18n="checkout_count">عدد الأضاحي المحجوزة:</span>
+                            <strong id="co-summary-count">1</strong>
+                        </div>
+                        <div class="summary-line total">
+                            <span data-i18n="checkout_total_price">الإجمالي النهائي:</span>
+                            <strong id="co-summary-total">0 د.ج</strong>
+                        </div>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-submit-order">
+                            <span data-i18n="btn_confirm_order">تأكيد وحفظ الطلبية فورا</span> <i class="fa-solid fa-circle-check"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-icon">
+                            <svg class="logo-ram-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gold-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#FFE082" />
+                                        <stop offset="50%" stop-color="#FFB300" />
+                                        <stop offset="100%" stop-color="#FF6F00" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gold-grad-footer)" stroke-width="2.5" stroke-dasharray="3,2"/>
+                                <path d="M 28,68 C 28,68 31,52 38,48 C 45,44 58,45 64,43 C 70,41 73,36 75,28 C 76,23 79,20 85,18 C 89,16 93,18 92,23 C 91,27 87,31 82,34 C 76,38 74,44 76,51 C 77,55 74,62 72,68 M 83,23 C 75,23 72,13 80,7 C 91,1 103,9 101,21 C 99,30 87,34 80,28 C 75,23 78,18 83,20" fill="none" stroke="url(#gold-grad-footer)" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="logo-text">KABCH-DZ</span>
+                    </a>
+                    <p class="footer-desc-text" data-i18n="footer_brand_desc">منصة رائدة لإدارة وحجز الأضاحي الفاخرة بطرق تكنولوجية حديثة لضمان الجودة، الراحة، والشفافية التامة.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4 data-i18n="footer_links_title">روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#" class="btn-navigate" data-view="home" data-i18n="nav_home">الرئيسية</a></li>
+                        <li><a href="#" class="btn-navigate" data-view="store" data-i18n="nav_store">المتجر الفاخر</a></li>
+                        <li><a href="#" class="btn-navigate" data-view="dashboard" data-i18n="nav_dashboard">لوحة التحكم</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4 data-i18n="footer_health_title">الالتزام الشرعي</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footer_h1">مطابقة الأحكام الشرعية</a></li>
+                        <li><a href="#" data-i18n="footer_h2">الرقابة الطبية والمخبرية</a></li>
+                        <li><a href="#" data-i18n="footer_h3">رعاية نباتية طبيعية</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2026 KABCH-DZ. جميع الحقوق محفوظة. مشروع بورتفوليو احترافي متطور.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- GSAP Core & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll CDN -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    
+    <!-- App Script -->
+    <script src="app.js?v=2.4"></script>
+</body>
+</html>
